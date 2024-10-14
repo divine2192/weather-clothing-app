@@ -24,20 +24,265 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>Weather & Clothing</title>
+      <!-- Include FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #7db9e8, #ffd89b);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+  
+      h1 {
+        color: #fff;
+        font-size: 3em;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+      }
+  
+      .container {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        width: 350px;
+        text-align: center;
+      }
+  
+      .container-info {
+        
+   
+        padding: 30px;
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+       
+        text-align: center;
+      }
+      input[type="text"] {
+        width: 80%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 2px solid #7db9e8;
+        border-radius: 5px;
+        font-size: 1em;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+  
+      input[type="text"]::placeholder {
+        color: #aaa;
+      }
+  
+      button {
+        padding: 10px 20px;
+        background-color: #7db9e8;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 1em;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+      }
+  
+      button:hover {
+        background-color: #5a9bd8;
+      }
+  
+      #weather-info {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+  
+      #clothing-suggestion {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+  
+      h2, p {
+        color: #333;
+        margin: 10px 0;
+      }
+  
+      #city-name {
+        font-size: 1.5em;
+        color: #7db9e8;
+      }
+  
+      #clothing-suggestion h3 {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        color: #7db9e8;
+      }
+  
+      #clothing-text {
+        color: #555;
+      }
+      #location-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    /* Initially hide weather info and clothing suggestion */
+    #weather-info, #clothing-suggestion, #location-image {
+      display: none;
+    }
+    </style>
+  </head>
+  <body>
+   
+  <div class="container-info"> 
+    <h1>Check Your Weather and Outfit!</h1>
+    <div>
+      <input type="text" id="city-input" placeholder="Enter city name" />
+      <button onclick="checkWeather()">Check Weather</button>
+    </div>
+    <!-- Image container -->
+    <div id="location-image">
+      <img id="city-image" src="" alt="City view">
+    </div>
+    <div id="weather-info">
+      <h2 id="city-name"></h2>
+      <p id="temperature"></p>
+      <p id="condition"></p>
+    </div>
+  
+    <div id="clothing-suggestion">
+      <h3>Clothing Suggestion:</h3>
+      <p id="clothing-text"></p>
+    </div>
+
+    <!-- Add Daily Challenge Section -->
+<div id="daily-challenge" style="display: none;">
+  <h3>Today's Style Challenge:</h3>
+  <p id="challenge-text"></p>
+</div>
+ <!-- Points and Badges Section -->
+ <div id="points-section">
+  <div class="points-badges">
+    <i id="points-icon" class="fas fa-coins"></i>
+    <span id="points">0</span> Points
+  </div>
+  <div class="points-badges">
+    <i id="badges-icon" class="fas fa-medal"></i>
+    <span id="badges">No badges earned yet</span>
+  </div>
+</div>
+</div>
+  </div>
+    <script>
+      const apiKey = '7b93c7fd3620128f2ed53b98ca195866';
+      const getWeather = async (city) => {
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
+      };
+      const getCityImage = async (city) => {
+      const url = `https://api.unsplash.com/search/photos?query=${city}&client_id=${unsplashApiKey}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      return data.results[0].urls.regular; // Get the first image
+    };
+      const displayWeather = (data) => {
+        document.getElementById('city-name').textContent = data.name;
+        document.getElementById('temperature').textContent = `Temperature: ${data.main.temp}°C`;
+        document.getElementById('condition').textContent = `Condition: ${data.weather[0].description}`;
+      };
+  
+      const suggestClothing = (temperature, condition) => {
+        let suggestion = '';
+        
+        if (temperature > 25) {
+          suggestion = 'It\'s hot! Wear light clothing like t-shirts, shorts, and sunglasses.';
+        } else if (temperature > 15) {
+          suggestion = 'Mild weather. A t-shirt and jeans would be good.';
+        } else if (temperature > 5) {
+          suggestion = 'It\'s a bit cold. Consider a jacket or sweater.';
+        } else {
+          suggestion = 'It\'s cold! Wear a heavy coat, gloves, and a hat.';
+        }
+  
+        if (condition.includes('rain')) {
+          suggestion += ' Don\'t forget an umbrella or raincoat!';
+        }
+  
+        document.getElementById('clothing-text').textContent = suggestion;
+      };
+  
+     
+    const suggestChallenge = (temperature, condition) => {
+  let challenge = '';
+
+  if (temperature > 25) {
+    challenge = 'Rock your summer wear! Grab your favorite sunglasses and show off a light, breezy outfit today.';
+  } else if (temperature > 15) {
+    challenge = 'Show us your perfect spring look! Mix and match with a stylish jacket and accessories.';
+  } else if (temperature > 5) {
+    challenge = 'Bundle up in style! Show off your favorite sweater and cozy boots for the cold weather.';
+  } else {
+    challenge = 'It\'s time to embrace the winter! Style your best coat, gloves, and hat for a cozy look.';
+  }
+
+  if (condition.includes('rain')) {
+    challenge = 'Rainy day chic! Show us how you can make a raincoat and boots stylish.';
+  }
+
+  document.getElementById('challenge-text').textContent = challenge;
+  document.getElementById('daily-challenge').style.display = 'block';
+};
+
+
+let userPoints = 0;
+let badges = [];
+
+const awardPoints = () => {
+  userPoints += 10; // Give 10 points for completing the challenge
+  document.getElementById('points').textContent = userPoints;
+  
+  if (userPoints >= 50 && !badges.includes('Fashion Enthusiast')) {
+    badges.push('Fashion Enthusiast');
+    document.getElementById('badges').textContent = 'Fashion Enthusiast Badge Unlocked!';
+  }
+};
+
+// Call awardPoints when user checks the weather
+const checkWeather = () => {
+  const city = document.getElementById('city-input').value;
+  
+  if (city) {
+    getWeather(city).then(data => {
+      displayWeather(data);
+      suggestClothing(data.main.temp, data.weather[0].description);
+      suggestChallenge(data.main.temp, data.weather[0].description); // Call challenge function
+
+      awardPoints(); // Give points for participation
+
+      document.getElementById('weather-info').style.display = 'block';
+      document.getElementById('clothing-suggestion').style.display = 'block';
+    });
+
+    getCityImage(city).then(imageUrl => {
+      document.getElementById('city-image').src = imageUrl;
+      document.getElementById('location-image').style.display = 'block';
+    });
+  }
+};
+    </script>
   </body>
 </html>
