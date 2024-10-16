@@ -1,149 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>StyleCast - Weather App</title>
-      <!-- Include FontAwesome for Icons -->
+<head></head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Title optimized with keywords -->
+  <title>StyleCast - Check Your Weather and Get Outfit Suggestions!</title>
+
+  <!-- Meta description for better search visibility -->
+  <meta name="description" content="WeatherWear helps you stay stylish by providing weather forecasts along with personalized outfit suggestions. Get daily style challenges and earn rewards for completing them!">
+
+  <!-- Meta keywords (optional but helps for some search engines) -->
+  <meta name="keywords" content="weather, fashion, outfit suggestions, clothing, style, weather forecast, daily challenges, rewards">
+
+  <!-- Meta author -->
+  <meta name="author" content="Your Name or Your Company">
+
+  <!-- Open Graph (OG) Meta Tags for Social Sharing -->
+  <meta property="og:title" content="StyleCast - Check Your Weather and Get Outfit Suggestions!">
+  <meta property="og:description" content="Stay stylish and prepared! WeatherWear gives you the latest weather forecast and tailored clothing suggestions. Join our daily challenges and earn rewards!">
+  <meta property="og:image" content="https://yourwebsite.com/path-to-your-image.jpg">
+  <meta property="og:url" content="https://yourwebsite.com">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card Meta Tags for Social Sharing -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="StyleCast - Check Your Weather and Get Outfit Suggestions!">
+  <meta name="twitter:description" content="Stay stylish and prepared! Get weather forecasts and personalized outfit suggestions based on the current weather. Join the daily challenges to earn rewards!">
+  <meta name="twitter:image" content="https://yourwebsite.com/path-to-your-image.jpg">
+
+  <!-- Structured Data (Schema.org) for search engines -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "StyleCast",
+    "description": "Check your local weather and get personalised clothing suggestions tailored to the forecast. Participate in daily style challenges and earn rewards.",
+    "url": "https://yourwebsite.com",
+    "applicationCategory": "Lifestyle",
+    "operatingSystem": "All",
+    "author": {
+      "@type": "Person",
+      "name": "Your Name or Your Company"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "category": "Free"
+    }
+  }
+  </script>
+
+  <!-- Mobile-first responsive design -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Favicon (icon in the browser tab) -->
+  <link rel="icon" href="https://yourwebsite.com/favicon.ico" type="image/x-icon">
+  
+  <!-- Styles and Fonts -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #7db9e8, #ffd89b);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-  </head>
-  <body>
-    <style>
-      body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        text-align: center;
-        margin: 0;
-        padding: 0;
-        background: linear-gradient(135deg, #7db9e8, #ffd89b);
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-  
-      h1 {
-        color: #fff;
-        font-size: 3em;
-        margin-bottom: 20px;
-        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-      }
-  
-      .container {
-        background-color: rgba(255, 255, 255, 0.9);
-        border-radius: 15px;
-        padding: 30px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        width: 350px;
-        text-align: center;
-      }
-  
-      .container-info {
-        
-   
-        padding: 30px;
+    h1 {
+      color: #fff;
+      font-size: 3em;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    }
 
-       
-        text-align: center;
-      }
-      input[type="text"] {
-        width: 80%;
-        padding: 10px;
-        margin-bottom: 20px;
-        border: 2px solid #7db9e8;
-        border-radius: 5px;
-        font-size: 1em;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-  
-      input[type="text"]::placeholder {
-        color: #aaa;
-      }
-  
-      button {
-        padding: 10px 20px;
-        background-color: #7db9e8;
-        border: none;
-        border-radius: 5px;
-        color: white;
-        font-size: 1em;
-        cursor: pointer;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: background-color 0.3s ease;
-      }
-  
-      button:hover {
-        background-color: #5a9bd8;
-      }
-  
-      #weather-info {
-        background-color: white;
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-        margin-top: 20px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-  
-      #clothing-suggestion {
-        background-color: #fff;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-  
-      h2, p {
-        color: #333;
-        margin: 10px 0;
-      }
-  
-      #city-name {
-        font-size: 1.5em;
-        color: #7db9e8;
-      }
-  
-      #clothing-suggestion h3 {
-        font-size: 1.2em;
-        margin-bottom: 10px;
-        color: #7db9e8;
-      }
-  
-      #clothing-text {
-        color: #555;
-      }
-      #location-image img {
-      width: 100%;
-      height: auto;
+    .container {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 350px;
+      text-align: center;
+    }
+
+    .container-info {
+      
+ 
+      padding: 30px;
+
+     
+      text-align: center;
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 2px solid #7db9e8;
+      border-radius: 5px;
+      font-size: 1em;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="text"]::placeholder {
+      color: #aaa;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #7db9e8;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #5a9bd8;
+    }
+
+    #weather-info {
+      background-color: white;
+      padding: 20px;
       border-radius: 10px;
+      margin-bottom: 20px;
+      margin-top: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-    /* Initially hide weather info and clothing suggestion */
-    #weather-info, #clothing-suggestion, #location-image {
-      display: none;
+    #clothing-suggestion {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-    </style>
-  </head>
+
+    h2, p {
+      color: #333;
+      margin: 10px 0;
+    }
+
+    #city-name {
+      font-size: 1.5em;
+      color: #7db9e8;
+    }
+
+    #clothing-suggestion h3 {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+      color: #7db9e8;
+    }
+
+    #clothing-text {
+      color: #555;
+    }
+    #location-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  /* Initially hide weather info and clothing suggestion */
+  #weather-info, #clothing-suggestion, #location-image {
+    display: none;
+  }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5363296607263825"
+  crossorigin="anonymous"></script>
+</head>
   <body>
    
   <div class="container-info"> 
